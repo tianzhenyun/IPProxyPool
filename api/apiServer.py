@@ -24,7 +24,8 @@ def start_api_server():
 class select(object):
     def GET(self):
         inputs = web.input()
-        json_result = json.dumps(sqlhelper.select(inputs.get('count', None), inputs))
+        res = sqlhelper.select(inputs.get('count', None), inputs)
+        json_result = json.dumps(list(map(lambda x: x._asdict(), res)))
         return json_result
 
 
